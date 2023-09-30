@@ -1,6 +1,5 @@
-import { NextRequest, NextResponse } from 'next/server';
-import { type ReadStream, createReadStream, stat, fstatSync, statSync } from 'node:fs';
-import { statfs } from 'node:fs/promises';
+import { NextRequest } from 'next/server';
+import { type ReadStream, createReadStream, statSync } from 'node:fs';
 
 async function* streamToIterator(stream: ReadStream) {
   for await (let chunk of stream) {
@@ -29,7 +28,7 @@ function iteratorToReadableStream(iterator: AsyncGenerator<any>) {
 }
 
 export async function GET(req: NextRequest) {
-  const videoPath = 'myVideo.MPG';
+  const videoPath = 'video.mp4';
 
   const range = req.headers.get('range');
   if (!range) {
@@ -42,7 +41,7 @@ export async function GET(req: NextRequest) {
   const contentLength = end - start;
 
   const newHeaders = new Headers(req.headers);
-  newHeaders.set('Content-Type', 'video/mpeg');
+  newHeaders.set('Content-Type', 'video/mp4');
   newHeaders.set('Content-Length', contentLength + '');
   newHeaders.set('Accept-Ranges', 'bytes');
   newHeaders.set('Content-Range', `bytes ${start}-${end}/${videoSize}`);
