@@ -1,49 +1,32 @@
-import { Flex, Grid, Heading, IconButton, Table, Tooltip } from '@radix-ui/themes';
+import { Flex, Heading, IconButton } from '@radix-ui/themes';
 import { SearchInput } from './components/SearchInput';
 import { PlusIcon } from '@radix-ui/react-icons';
+import { VideosList } from './components/VideosList';
+import { VideosListProvider } from './contexts/VideosListContext';
+import { UploadFileDialog } from './components/UploadFileDialog';
 
 export default function Home() {
   return (
-    <Grid className="p-12" gap="9">
-      <Heading align="center">Video Streaming app</Heading>
+    <div className="p-12">
+      <Heading align="center" className="mb-20">
+        Video Streaming app
+      </Heading>
 
       <Flex direction="column" align="center" gap="7">
         <Flex justify="between" gap="7" className="w-3/5">
           <SearchInput className="flex-1" />
 
-          <Tooltip content="Upload new video" delayDuration={200}>
-            <IconButton variant="soft" className="cursor-pointer">
+          <UploadFileDialog>
+            <IconButton variant="soft" className="cursor-pointer bg-[--accent-a3]">
               <PlusIcon />
             </IconButton>
-          </Tooltip>
+          </UploadFileDialog>
         </Flex>
 
-        <Table.Root variant="surface" className="w-3/5">
-          <Table.Header>
-            <Table.Row>
-              <Table.ColumnHeaderCell>Video name</Table.ColumnHeaderCell>
-              <Table.ColumnHeaderCell>Length</Table.ColumnHeaderCell>
-            </Table.Row>
-          </Table.Header>
-
-          <Table.Body>
-            <Table.Row>
-              <Table.RowHeaderCell>Methano</Table.RowHeaderCell>
-              <Table.Cell>3:40</Table.Cell>
-            </Table.Row>
-
-            <Table.Row>
-              <Table.RowHeaderCell>Methano</Table.RowHeaderCell>
-              <Table.Cell>3:40</Table.Cell>
-            </Table.Row>
-
-            <Table.Row>
-              <Table.RowHeaderCell>Methano</Table.RowHeaderCell>
-              <Table.Cell>3:40</Table.Cell>
-            </Table.Row>
-          </Table.Body>
-        </Table.Root>
+        <VideosListProvider>
+          <VideosList className="w-3/5" />
+        </VideosListProvider>
       </Flex>
-    </Grid>
+    </div>
   );
 }
