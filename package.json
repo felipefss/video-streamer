@@ -11,9 +11,16 @@
   "dependencies": {
     "@radix-ui/react-icons": "^1.3.0",
     "@radix-ui/themes": "^2.0.0",
+    "class-variance-authority": "^0.7.0",
+    "clsx": "^2.0.0",
+    "lucide-react": "^0.288.0",
     "next": "latest",
+    "node-appwrite": "^11.0.0",
     "react": "latest",
-    "react-dom": "latest"
+    "react-dom": "latest",
+    "shadcn-ui": "latest",
+    "tailwind-merge": "^1.14.0",
+    "tailwindcss-animate": "^1.0.7"
   },
   "devDependencies": {
     "@types/node": "latest",

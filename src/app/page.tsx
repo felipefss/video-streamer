@@ -1,9 +1,9 @@
 import { Flex, Heading, IconButton } from '@radix-ui/themes';
-import { SearchInput } from './components/SearchInput';
+import { SearchInput } from '../components/SearchInput';
 import { PlusIcon } from '@radix-ui/react-icons';
-import { VideosList } from './components/VideosList';
+import { VideosList } from '../components/VideosList';
 import { VideosListProvider } from './contexts/VideosListContext';
-import { UploadFileDialog } from './components/UploadFileDialog';
+import { UploadFileDialog } from '../components/UploadFileDialog';
 
 export default function Home() {
   return (

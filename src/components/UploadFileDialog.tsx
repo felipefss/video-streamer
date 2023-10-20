@@ -9,6 +9,7 @@ interface Props {
 
 export function UploadFileDialog({ children }: Props) {
   const inputFileRef = useRef<HTMLInputElement>(null);
+  const fileNameRef = useRef<HTMLInputElement>(null);
 
   async function handleFormSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -22,6 +23,8 @@ export function UploadFileDialog({ children }: Props) {
 
     const formData = new FormData();
     formData.append('file', file);
+    // TODO: make file name come from input
+    formData.append('fileName', 'Methano - Come as you are.mp4');
 
     try {
       const response = await fetch('/api/video', {
@@ -34,6 +37,7 @@ export function UploadFileDialog({ children }: Props) {
         return;
       }
 
+      // TODO: Have a loading spinner while file is being uploaded
       console.log(response.json());
     } catch (e) {
       console.error(e);
