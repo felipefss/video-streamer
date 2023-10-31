@@ -1,18 +1,27 @@
 'use client';
 
 import { Button, Dialog, Flex, Text, TextField } from '@radix-ui/themes';
-import { ExclamationTriangleIcon } from '@radix-ui/react-icons';
-import * as Toast from '@radix-ui/react-toast';
 import { FormEvent, ReactNode, useRef, useState } from 'react';
 import { ThreeCircles } from 'react-loader-spinner';
+import { Toast } from './Toast';
 
 interface Props {
   children: ReactNode;
 }
 
+interface SubmitStatus {
+  status: 'error' | 'success' | null;
+  message: string | null;
+}
+
+const initialSubmitStatus = { status: null, message: null };
+
 export function UploadFileDialog({ children }: Props) {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState<SubmitStatus>(initialSubmitStatus);
+
+  const isToastVisible = !!submitStatus.status && ['error', 'success'].includes(submitStatus.status);
 
   const inputFileRef = useRef<HTMLInputElement>(null);
   const fileNameRef = useRef<HTMLInputElement>(null);
@@ -95,17 +104,9 @@ export function UploadFileDialog({ children }: Props) {
         </Dialog.Content>
       </Dialog.Root>
 
-      {/* TODO: Create a separate component for the toast and pass the message as prop. Icon will be defined as "type", which will be mapped in the component to the right icon */}
-      <Toast.Provider>
-        <Toast.Root open={true} className="bg-indigo-950 rounded-md p-3 text-sm">
-          <Toast.Description className="flex items-center gap-2">
-            <ExclamationTriangleIcon color="#e01b1b" />
-            <span>Something went wrong</span>
-          </Toast.Description>
-        </Toast.Root>
-
-        <Toast.Viewport className="fixed top-0 right-0 mr-6 mt-12" />
-      </Toast.Provider>
+      {submitStatus.status && (
+        <Toast isVisible={isToastVisible} type={submitStatus.status} message={submitStatus.message} />
+      )}
     </>
   );
 }

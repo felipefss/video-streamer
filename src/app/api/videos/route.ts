@@ -1,2 +1,2 @@
-export { GET } from './getVideo';
+export { GET } from './getVideos';
 export { POST } from './uploadVideo';
