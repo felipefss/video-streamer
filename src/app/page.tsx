@@ -2,8 +2,9 @@ import { Flex, Heading, IconButton } from '@radix-ui/themes';
 import { SearchInput } from '../components/SearchInput';
 import { PlusIcon } from '@radix-ui/react-icons';
 import { VideosList } from '../components/VideosList';
-import { VideosListProvider } from './contexts/VideosListContext';
+// import { VideosListProvider } from './contexts/VideosListContext';
 import { UploadFileDialog } from '../components/UploadFileDialog';
+import { Suspense } from 'react';
 
 export default function Home() {
   return (
@@ -23,10 +24,11 @@ export default function Home() {
           </UploadFileDialog>
         </Flex>
 
-        {/* TODO: Wrap the below in a Suspense */}
-        <VideosListProvider>
+        {/* <VideosListProvider> */}
+        <Suspense fallback={<h2>Loading...</h2>}>
           <VideosList className="w-3/5" />
-        </VideosListProvider>
+        </Suspense>
+        {/* </VideosListProvider> */}
       </Flex>
     </div>
   );

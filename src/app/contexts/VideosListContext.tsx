@@ -1,15 +1,16 @@
 'use client';
 
-import { ReactNode, createContext, useContext, useMemo, useState } from 'react';
+import { ReactNode, createContext, useContext, useEffect, useMemo, useState } from 'react';
 
 interface ProviderProps {
   children: ReactNode;
 }
 
 interface Video {
-  id: string;
-  title: string;
-  size: string;
+  $id: string;
+  name: string;
+  video_id: string;
+  video_length: number;
 }
 
 interface ContextProps {
@@ -20,6 +21,14 @@ const VideosListContext = createContext({} as ContextProps);
 
 export function VideosListProvider({ children }: ProviderProps) {
   const [listOfVideos, setListOfVideos] = useState<Video[]>([]);
+
+  useEffect(() => {
+    fetch('/api/videos')
+      .then((response) => response.json())
+      .then((data) => {
+        setListOfVideos(data.documents);
+      });
+  }, []);
 
   const value = useMemo(
     () => ({
