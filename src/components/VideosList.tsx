@@ -2,6 +2,7 @@ import { database } from '@/app/api/_lib/appwrite';
 import { env } from '@/env';
 import { convertSecondsToMinutes } from '@/utils/convert';
 import { Table } from '@radix-ui/themes';
+import Link from 'next/link';
 import { Models } from 'node-appwrite';
 
 interface Video extends Models.Document {
@@ -35,7 +36,9 @@ export async function VideosList({ className }: Props) {
       <Table.Body>
         {listOfVideos.map((video) => (
           <Table.Row key={video.$id}>
-            <Table.RowHeaderCell>{video.name}</Table.RowHeaderCell>
+            <Table.RowHeaderCell>
+              <Link href={`/video/${video.video_id}`}>{video.name}</Link>
+            </Table.RowHeaderCell>
             <Table.Cell>{convertSecondsToMinutes(video.video_length)}</Table.Cell>
           </Table.Row>
         ))}
